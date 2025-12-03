@@ -1,0 +1,54 @@
+.animated-banner-block {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #1e1e1e, #333);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.animated-banner-content {
+    animation: fadeInSlide 1.5s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.animated-banner-block h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.animated-banner-block p {
+    font-size: 1.3rem;
+}
+.animated-banner-block .cta-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 30px;
+    background-color: #ff5722;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.animated-banner-block .cta-button:hover {
+    background-color: #e64a19;
+}.ab-cta-row input[type="text"] {
+    margin-right: 8px;
+    padding: 6px;
+}

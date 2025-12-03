@@ -1,0 +1,31 @@
+{
+  "apiVersion": 3,
+  "name": "custom/animated-banner",
+  "title": "Animated Banner",
+  "category": "design",
+  "icon": "slides",
+  "description": "A reusable animated hero banner.",
+  "keywords": ["banner", "animation", "hero"],
+  "supports": {
+    "html": false
+  },
+  "editorScript": "file:./edit.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "script": "file:./front.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "default": "My Animated Banner"
+    },
+    "subheadline": {
+      "type": "string",
+      "default": "This is editable text in your custom block."
+    },
+     "backgroundImage": {
+        "type": "string",
+        "default": ""
+    }
+  }
+}

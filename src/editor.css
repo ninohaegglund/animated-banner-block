@@ -1,0 +1,8 @@
+.animated-banner-block {
+    border: 1px dashed #777;
+    padding: 40px;
+    background: #3b3838;
+}
+.animated-banner-block .cta-button {
+    background-color: #0073e6;
+}
