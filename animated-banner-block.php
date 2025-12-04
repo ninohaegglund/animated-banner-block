@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Animated Banner Block
  * Description: A custom animated banner Gutenberg block.
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: Nino Hägglund
  */
 

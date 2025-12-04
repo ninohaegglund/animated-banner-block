@@ -1,3 +1,4 @@
+/* Your existing banner styles */
 .animated-banner-block {
     padding: 140px 30px;
     background: linear-gradient(135deg, #000000, #333);
@@ -10,27 +11,42 @@
     position: relative;
 }
 
+/* Entrance state: start hidden until in view */
 .animated-banner-content {
-    animation: fadeInSlide 1.5s ease forwards;
     opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 600ms ease, transform 600ms ease;
 }
 
-@keyframes fadeInSlide {
-    0% {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    100% {
+/* When block enters viewport, reveal content */
+.animated-banner-block.is-inview .animated-banner-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Optional: stagger for child elements */
+.animated-banner-block.is-inview .animated-banner-content > * {
+    transition: opacity 600ms ease, transform 600ms ease;
+}
+.animated-banner-block.is-inview .animated-banner-content > *:nth-child(1) { transition-delay: 60ms; }
+.animated-banner-block.is-inview .animated-banner-content > *:nth-child(2) { transition-delay: 120ms; }
+.animated-banner-block.is-inview .animated-banner-content > *:nth-child(3) { transition-delay: 180ms; }
+
+@media (prefers-reduced-motion: reduce) {
+    .animated-banner-content,
+    .animated-banner-block.is-inview .animated-banner-content,
+    .animated-banner-block.is-inview .animated-banner-content > * {
+        transition: none;
         opacity: 1;
-        transform: translateY(0px);
+        transform: none;
     }
 }
 
+/* Typography (kept from your original) */
 .animated-banner-block h2 {
     font-size: 48px;
     margin-bottom: 20px;
 }
-
 .animated-banner-block p {
     font-size: 20px;
     max-width: 700px;
@@ -47,13 +63,15 @@
     border-radius: 4px;
     transition: background-color 0.3s ease;
 }
-
 .animated-banner-block .cta-button:hover {
     background-color: #e64a19;
-}.ab-cta-row input[type="text"] {
+}
+.ab-cta-row input[type="text"] {
     margin-right: 8px;
     padding: 6px;
 }
+
+/* Responsive (kept from your original) */
 @media (max-width: 900px) {
     .animated-banner-block {
         padding: 110px 25px;
@@ -69,4 +87,89 @@
     .animated-banner-block p {
         font-size: 1rem;
     }
+}
+
+/* Marquee track styles (existing behavior) */
+.abb-viewport {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+.abb-track {
+    display: inline-flex;
+    white-space: nowrap;
+    will-change: transform;
+}
+.abb-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 24px;
+}
+
+/* Optional: metrics row like in your screenshot */
+.ab-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+    align-items: start;
+    max-width: 1100px;
+    margin: 40px auto 0;
+    text-align: center;
+}
+@media (max-width: 900px) {
+  .ab-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .ab-metrics { grid-template-columns: 1fr; }
+}
+.ab-metric .ab-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+    opacity: 0;
+    transform: translateY(8px);
+}
+.ab-metric .ab-label,
+.ab-metric .ab-number,
+.ab-metric .ab-sub {
+    opacity: 0;
+    transform: translateY(8px);
+}
+.ab-metric .ab-label {
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+.ab-metric .ab-number {
+    font-size: 34px;
+    font-weight: 600;
+    margin: 8px 0 4px;
+}
+.ab-metric .ab-sub {
+    font-size: 13px;
+    color: #bbb;
+    margin-top: 4px;
+}
+
+/* Reveal metrics when banner enters view */
+.animated-banner-block.is-inview .ab-metric .ab-icon,
+.animated-banner-block.is-inview .ab-metric .ab-label,
+.animated-banner-block.is-inview .ab-metric .ab-number,
+.animated-banner-block.is-inview .ab-metric .ab-sub {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 420ms ease, transform 420ms ease;
+}
+.animated-banner-block.is-inview .ab-metric .ab-label { transition-delay: 60ms; }
+.animated-banner-block.is-inview .ab-metric .ab-number { transition-delay: 120ms; }
+.animated-banner-block.is-inview .ab-metric .ab-sub   { transition-delay: 180ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ab-metric .ab-icon,
+  .ab-metric .ab-label,
+  .ab-metric .ab-number,
+  .ab-metric .ab-sub {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
 }

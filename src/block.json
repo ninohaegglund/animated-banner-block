@@ -1,14 +1,15 @@
 {
   "apiVersion": 3,
   "name": "custom/animated-banner",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "title": "Animated Banner",
   "category": "design",
   "icon": "slides",
-  "description": "A reusable animated hero banner.",
-  "keywords": ["banner", "animation", "hero"],
+  "description": "A reusable animated hero banner with optional metrics and marquee.",
+  "keywords": ["banner", "animation", "hero", "metrics", "marquee"],
   "supports": {
-    "html": false
+    "html": false,
+    "align": ["wide", "full"]
   },
   "editorScript": "file:./edit.js",
   "editorStyle": "file:./editor.css",
@@ -18,15 +19,61 @@
   "attributes": {
     "headline": {
       "type": "string",
-      "default": "My Animated Banner"
+      "default": "Title Text Here"
     },
     "subheadline": {
       "type": "string",
-      "default": "This is editable text in your custom block."
+      "default": "Summary of key metrics and information"
     },
-     "backgroundImage": {
-        "type": "string",
-        "default": ""
+    "backgroundImage": {
+      "type": "string",
+      "default": ""
+    },
+    "animateOnce": {
+      "type": "boolean",
+      "default": true
+    },
+    "showMarquee": {
+      "type": "boolean",
+      "default": true
+    },
+    "marqueeSpeed": {
+      "type": "number",
+      "default": 20
+    },
+    "marqueeDirection": {
+      "type": "string",
+      "enum": ["left", "right"],
+      "default": "left"
+    },
+    "metrics": {
+      "type": "array",
+      "default": [
+        {
+          "icon": "📷",
+          "label": "Vår agentur består av ca",
+          "number": 200,
+          "suffix": " fotografer",
+          "sub": "I Sverige, Norge & Finland",
+          "decimals": 0
+        },
+        {
+          "icon": "🏠",
+          "label": "Vi fotograferar mer än",
+          "number": 30,
+          "suffix": "% av bostäderna",
+          "sub": "Som säljs i Sverige",
+          "decimals": 0
+        },
+        {
+          "icon": "💰",
+          "label": "Våra uppdrag genererade",
+          "number": 100,
+          "suffix": " MILJONER KR",
+          "sub": "Till svenska fotografer 2024",
+          "decimals": 0
+        }
+      ]
     }
   }
 }
