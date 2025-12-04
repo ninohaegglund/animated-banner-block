@@ -1,6 +1,7 @@
 {
   "apiVersion": 3,
   "name": "custom/animated-banner",
+  "version": "1.0.1",
   "title": "Animated Banner",
   "category": "design",
   "icon": "slides",

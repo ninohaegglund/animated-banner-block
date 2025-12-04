@@ -1,6 +1,6 @@
 .animated-banner-block {
-    padding: 80px 20px;
-    background: linear-gradient(135deg, #1e1e1e, #333);
+    padding: 140px 30px;
+    background: linear-gradient(135deg, #000000, #333);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -27,12 +27,14 @@
 }
 
 .animated-banner-block h2 {
-    font-size: 3rem;
-    margin-bottom: 10px;
+    font-size: 48px;
+    margin-bottom: 20px;
 }
 
 .animated-banner-block p {
-    font-size: 1.3rem;
+    font-size: 20px;
+    max-width: 700px;
+    margin: 0 auto;
 }
 .animated-banner-block .cta-button {
     display: inline-block;
@@ -51,4 +53,20 @@
 }.ab-cta-row input[type="text"] {
     margin-right: 8px;
     padding: 6px;
+}
+@media (max-width: 900px) {
+    .animated-banner-block {
+        padding: 110px 25px;
+    }
+}
+@media (max-width: 600px) {
+    .animated-banner-block {
+        padding: 80px 15px;
+    }
+    .animated-banner-block h2 {
+        font-size: 2rem;
+    }
+    .animated-banner-block p {
+        font-size: 1rem;
+    }
 }
