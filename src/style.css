@@ -1,6 +1,6 @@
 /* Your existing banner styles */
 .animated-banner-block {
-    padding: 140px 30px;
+    padding: 90px 30px;
     background: linear-gradient(135deg, #000000, #333);
     background-size: cover;
     background-position: center;
@@ -9,6 +9,7 @@
     text-align: center;
     overflow: hidden;
     position: relative;
+    margin-top: 0;
 }
 
 /* Entrance state: start hidden until in view */
@@ -162,6 +163,12 @@
 .animated-banner-block.is-inview .ab-metric .ab-label { transition-delay: 60ms; }
 .animated-banner-block.is-inview .ab-metric .ab-number { transition-delay: 120ms; }
 .animated-banner-block.is-inview .ab-metric .ab-sub   { transition-delay: 180ms; }
+
+.entry-content > .animated-banner-block:first-child,
+.wp-site-blocks > .animated-banner-block:first-child,
+.site-main > .animated-banner-block:first-child {
+  margin-top: 0;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .ab-metric .ab-icon,
