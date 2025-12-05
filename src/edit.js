@@ -168,15 +168,15 @@
           el('div', { className: 'animated-banner-content' },
             el('h2', null, headline),
             el('p', null, subheadline),
-            showMarquee && el('div', { className: 'abb-viewport', 'aria-hidden': 'true' },
-              el('div', {
-                className: 'abb-track',
-                'data-speed': String(marqueeSpeed),
-                'data-direction': marqueeDirection
-              },
-                el('span', { className: 'abb-item' }, '📷 Fotografer'),
-                el('span', { className: 'abb-item' }, '🏚️ Bostäder'),
-                el('span', { className: 'abb-item' }, '💰 Miljoner')
+              showMarquee && el('div', { className: 'abb-viewport', 'aria-hidden': 'true' },
+                el('div', {
+                  className: 'abb-track',
+                  'data-speed': String(marqueeSpeed),
+                  'data-direction': marqueeDirection
+                },
+                  el('span', { className: 'abb-item' }, 'Partner 1'),
+                  el('span', { className: 'abb-item' }, 'Partner 2'),
+                  el('span', { className: 'abb-item' }, 'Partner 3')
               )
             ),
             metrics && metrics.length > 0 && el('div', { className: 'ab-metrics', role: 'group', 'aria-label': 'Nyckeltal' },
@@ -200,7 +200,6 @@
       );
     },
     save: function() {
-      // Server-side render via render.php
       return null;
     }
   });

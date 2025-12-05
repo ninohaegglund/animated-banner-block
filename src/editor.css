@@ -8,24 +8,14 @@
 }
 
 /* Editor-only visual aids for metrics grid */
-.ab-metrics {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-    margin-top: 24px;
-}
+
 @media (max-width: 900px) {
     .ab-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 600px) {
     .ab-metrics { grid-template-columns: 1fr; }
 }
-.ab-metric {
-    background: rgba(255,255,255,0.06);
-    border: 1px dashed rgba(255,255,255,0.15);
-    border-radius: 6px;
-    padding: 12px;
-}
+
 .ab-icon {
     font-size: 28px;
     margin-bottom: 8px;
@@ -43,4 +33,18 @@
 .ab-sub {
     font-size: 12px;
     opacity: 0.8;
+}
+/* Editor preview aids (editor-only) */
+.ab-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.ab-metric {
+  background: rgba(255,255,255,0.06);
+  border: 1px dashed rgba(255,255,255,0.15);
+  border-radius: 10px;
+  padding: 16px;
 }

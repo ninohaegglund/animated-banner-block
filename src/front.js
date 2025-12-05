@@ -36,43 +36,57 @@
     });
   }
 
-  function initTrack(track) {
-    var speed = parseFloat(track.getAttribute('data-speed')) || 20;
-    var direction = track.getAttribute('data-direction') === 'right' ? 'right' : 'left';
+function initTrack(track) {
+  var direction = track.getAttribute('data-direction') === 'right' ? 'right' : 'left';
 
-    var item = track.querySelector('.abb-item');
-    if (!item) return;
+  var pps = parseFloat(track.getAttribute('data-speed')) || 40; // default slower
 
-    Array.prototype.slice.call(track.querySelectorAll('.abb-clone')).forEach(function(n){ n.remove(); });
+  var originals = Array.prototype.slice.call(track.querySelectorAll('.abb-item'));
+  if (!originals.length) return;
 
-    var viewport = track.closest('.abb-viewport') || track.parentElement;
-    var vw = viewport.offsetWidth;
-    var contentWidth = track.scrollWidth;
+  Array.prototype.slice.call(track.querySelectorAll('.abb-clone')).forEach(function(n){ n.remove(); });
 
-    var clones = 0;
-    while (contentWidth < vw * 2) {
-      var c = item.cloneNode(true);
+  var viewport = track.closest('.abb-viewport') || track.parentElement;
+  var vw = viewport.offsetWidth;
+  track.__abbLastViewportWidth = vw;
+
+  var contentWidth = track.scrollWidth;
+  var clones = 0;
+  function appendChunkClone() {
+    var frag = document.createDocumentFragment();
+    originals.forEach(function(node) {
+      var c = node.cloneNode(true);
       c.classList.add('abb-clone');
-      track.appendChild(c);
-      contentWidth = track.scrollWidth;
-      clones++;
-      if (clones > 50) break;
-    }
-
-    var distance = contentWidth;
-    track.style.setProperty('--abb-distance', distance + 'px');
-    track.style.setProperty('--abb-duration', speed + 's');
-
-    if (prefersReduced) {
-      track.style.animation = 'none';
-      track.style.transform = 'translateX(0)';
-    } else {
-      track.style.animation = (direction === 'left')
-        ? 'abb-scroll-left var(--abb-duration) linear infinite'
-        : 'abb-scroll-right var(--abb-duration) linear infinite';
-    }
+      frag.appendChild(c);
+    });
+    track.appendChild(frag);
+  }
+  while (contentWidth < vw * 2) {
+    appendChunkClone();
+    contentWidth = track.scrollWidth;
+    clones++;
+    if (clones > 20) break;
   }
 
+    var distance = contentWidth;
+    var durationSeconds = Math.max(5, distance / Math.max(5, pps)); 
+    track.style.setProperty('--abb-distance', distance + 'px');
+    track.style.setProperty('--abb-duration', durationSeconds + 's');
+
+     var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    track.style.animation = 'none';
+    track.style.transform = 'translate3d(0,0,0)';
+  } else {
+    track.style.animation = (direction === 'left')
+      ? 'abb-scroll-left var(--abb-duration) linear infinite'
+      : 'abb-scroll-right var(--abb-duration) linear infinite';
+    track.style.animationPlayState = 'running';
+    track.style.transform = 'translate3d(0,0,0)';
+  }
+}
+
+  // Inject keyframes once
   var styleId = 'abb-scroll-keyframes';
   if (!document.getElementById(styleId)) {
     var style = document.createElement('style');
@@ -89,6 +103,7 @@
     document.head.appendChild(style);
   }
 
+  // Numbers
   function initNumbers(banner) {
     var nums = banner.querySelectorAll('[data-count-to]');
     Array.prototype.forEach.call(nums, function(num){
@@ -110,42 +125,49 @@
     return Promise.all(jobs);
   }
 
-  function observeBanner(banner) {
-    var animateOnce = banner.getAttribute('data-animate-once') === 'true';
-    var hasAnimated = false;
+function observeBanner(banner) {
+  var animateOnce = banner.getAttribute('data-animate-once') === 'true';
+  var hasAnimated = false;
 
-    var nums = initNumbers(banner);
+  var nums = initNumbers(banner);
 
-    var observer = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if (entry.isIntersecting && entry.intersectionRatio > 0) {
-          banner.classList.add('is-inview');
-          Array.prototype.forEach.call(banner.querySelectorAll('.abb-track'), function(track){
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting && entry.intersectionRatio > 0) {
+        banner.classList.add('is-inview');
+
+        Array.prototype.forEach.call(banner.querySelectorAll('.abb-track'), function(track){
+          // Initialize only once
+          if (!track.__abbInitialized) {
             initTrack(track);
-            track.style.animationPlayState = 'running';
-          });
+            track.__abbInitialized = true;
+            // cache width to detect resize-based changes
+            track.__abbLastWidth = track.scrollWidth;
+          }
+          track.style.animationPlayState = 'running';
+        });
 
-          if (!hasAnimated || !animateOnce) {
-            runNumbers(nums).then(function(){ hasAnimated = true; });
-          }
-        } else {
-          Array.prototype.forEach.call(banner.querySelectorAll('.abb-track'), function(track){
-            track.style.animationPlayState = 'paused';
-          });
-          if (!animateOnce) {
-            banner.classList.remove('is-inview');
-            nums = initNumbers(banner);
-          }
+        if (!hasAnimated || !animateOnce) {
+          runNumbers(nums).then(function(){ hasAnimated = true; });
         }
-      });
-    }, {
-      root: null,
-      rootMargin: '0px 0px -10% 0px',
-      threshold: [0, 0.25, 0.5, 0.75, 1]
+      } else {
+        Array.prototype.forEach.call(banner.querySelectorAll('.abb-track'), function(track){
+          track.style.animationPlayState = 'paused';
+        });
+        if (!animateOnce) {
+          banner.classList.remove('is-inview');
+          nums = initNumbers(banner);
+        }
+      }
     });
+  }, {
+    root: null,
+    rootMargin: '0px 0px -10% 0px',
+    threshold: [0, 0.25, 0.5, 0.75, 1]
+  });
 
-    observer.observe(banner);
-  }
+  observer.observe(banner);
+}
 
   function initAll() {
     var banners = document.querySelectorAll('.animated-banner-block');

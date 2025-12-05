@@ -28,13 +28,31 @@ $style_attr = $background ? ' style="background-image:url(' . esc_url($backgroun
     <?php endif; ?>
 
     <?php if ( $show_marquee ) : ?>
-      <div class="abb-viewport" aria-hidden="true">
-        <div class="abb-track" data-speed="<?php echo esc_attr( $marquee_speed ); ?>" data-direction="<?php echo esc_attr( $marquee_dir ); ?>">
-          <span class="abb-item">📷 Fotografer</span>
-          <span class="abb-item">🖼️ Bostäder</span>
-          <span class="abb-item">🐷 Miljoner</span>
-        </div>
+        <div class="abb-viewport" aria-hidden="true">
+      <div class="abb-track" data-speed="<?php echo esc_attr( $marquee_speed ); ?>" data-direction="<?php echo esc_attr( $marquee_dir ); ?>">
+        <span class="abb-item">HSB</span>
+        <span class="abb-item">Rikshem</span>
+        <span class="abb-item">Wallenstam</span>
+        <span class="abb-item">Vasakronan</span>
+        <span class="abb-item">Balder</span>
+        <span class="abb-item">Kopparstaden</span>
+        <span class="abb-item">Stockholmshem</span>
+        <span class="abb-item">Bostadsbolaget</span>
+        <span class="abb-item">MKB Fastighets AB</span>
+        <span class="abb-item">Familjebostäder</span>
+        <span class="abb-item">HSB</span>
+        <span class="abb-item">Rikshem</span>
+        <span class="abb-item">Wallenstam</span>
+        <span class="abb-item">Vasakronan</span>
+        <span class="abb-item">Balder</span>
+        <span class="abb-item">Kopparstaden</span>
+        <span class="abb-item">Stockholmshem</span>
+        <span class="abb-item">Bostadsbolaget</span>
+        <span class="abb-item">MKB Fastighets AB</span>
+        <span class="abb-item">Familjebostäder</span>
+      
       </div>
+    </div>
     <?php endif; ?>
 
     <?php if ( ! empty( $metrics ) ) : ?>
@@ -63,7 +81,6 @@ $style_attr = $background ? ' style="background-image:url(' . esc_url($backgroun
                 data-suffix="<?php echo esc_attr( $suffix ); ?>"
               >0</span>
               <?php
-              // If suffix is not percentage, we already include it in data-suffix which JS applies; text after span is optional.
               ?>
             </p>
 

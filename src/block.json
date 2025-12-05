@@ -23,7 +23,7 @@
     },
     "subheadline": {
       "type": "string",
-      "default": "Summary of key metrics and information"
+      "default": "Sample subheadline text goes here."
     },
     "backgroundImage": {
       "type": "string",
@@ -49,28 +49,28 @@
     "metrics": {
       "type": "array",
       "default": [
-        {
+       {
           "icon": "📷",
-          "label": "Vår agentur består av ca",
-          "number": 200,
-          "suffix": " fotografer",
-          "sub": "I Sverige, Norge & Finland",
+          "label": "Ett nätverk av",
+          "number": 150,
+          "suffix": " FOTOGRAFER",
+          "sub": "Tillgängliga året runt",
           "decimals": 0
         },
         {
           "icon": "🏠",
-          "label": "Vi fotograferar mer än",
+          "label": "Vi levererar bildmaterial till",
           "number": 30,
-          "suffix": "% av bostäderna",
-          "sub": "Som säljs i Sverige",
+          "suffix": "% AV MARKNADEN",
+          "sub": "På landets största plattformar",
           "decimals": 0
         },
         {
           "icon": "💰",
-          "label": "Våra uppdrag genererade",
-          "number": 100,
+          "label": "Vi skapade intäkter på",
+          "number": 70,
           "suffix": " MILJONER KR",
-          "sub": "Till svenska fotografer 2024",
+          "sub": "För kreatörer i vårt nätverk",
           "decimals": 0
         }
       ]
