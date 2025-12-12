@@ -50,7 +50,7 @@
       "type": "array",
       "default": [
        {
-          "icon": "📷",
+          "icon": "camera",
           "label": "Ett nätverk av",
           "number": 150,
           "suffix": " FOTOGRAFER",
@@ -58,7 +58,7 @@
           "decimals": 0
         },
         {
-          "icon": "🏘️",
+          "icon": "home",
           "label": "Vi levererar bildmaterial till",
           "number": 30,
           "suffix": "% AV MARKNADEN",
@@ -66,7 +66,7 @@
           "decimals": 0
         },
         {
-          "icon": "💰",
+          "icon": "money",
           "label": "Vi skapade intäkter på",
           "number": 70,
           "suffix": " MILJONER KR",

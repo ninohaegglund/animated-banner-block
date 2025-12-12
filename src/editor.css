@@ -17,8 +17,13 @@
 }
 
 .ab-icon {
-    font-size: 28px;
     margin-bottom: 8px;
+    color: #ffffff;
+}
+.ab-icon svg {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
 }
 .ab-label {
     font-size: 12px;

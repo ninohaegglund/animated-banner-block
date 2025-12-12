@@ -131,7 +131,7 @@
                   el(Button, { variant: 'secondary', isDestructive: true, onClick: function(){ removeMetric(i); } }, 'Ta bort')
                 ),
                 el(TextControl, {
-                  label: 'Ikon (emoji eller text)',
+                  label: 'Ikon (slug, t.ex. camera)',
                   value: m.icon || '',
                   onChange: function(v){ updateMetric(i, { icon: v }); }
                 }),
@@ -182,7 +182,14 @@
             metrics && metrics.length > 0 && el('div', { className: 'ab-metrics', role: 'group', 'aria-label': 'Nyckeltal' },
               metrics.map(function(m, i){
                 return el('div', { className: 'ab-metric', key: i },
-                  m.icon ? el('div', { className: 'ab-icon', 'aria-hidden': 'true' }, m.icon) : null,
+                  m.icon ? el('div', { className: 'ab-icon', 'aria-hidden': 'true' },
+                    (function(){
+                      var base = (typeof window !== 'undefined' && window.abbIconsBase) ? window.abbIconsBase : '/wp-content/plugins/animated-banner-block/assets/icons/';
+                      var slug = String(m.icon || '').toLowerCase().replace(/[^a-z0-9\-_.]/g, '');
+                      var src = base + slug + '.svg';
+                      return el('img', { src: src, alt: '', style: { width: '1.5em', height: '1.5em' } });
+                    })()
+                  ) : null,
                   m.label ? el('p', { className: 'ab-label' }, m.label) : null,
                   el('p', { className: 'ab-number' },
                     el('span', {

@@ -67,7 +67,37 @@ $style_attr = $background ? ' style="background-image:url(' . esc_url($backgroun
         ?>
           <div class="ab-metric">
             <?php if ( $icon ) : ?>
-              <div class="ab-icon" aria-hidden="true"><?php echo esc_html( $icon ); ?></div>
+              <div class="ab-icon" aria-hidden="true">
+                <?php
+                  // Treat icon as slug and inline the SVG from assets/icons/{slug}.svg
+                  $slug = strtolower( preg_replace( '/[^a-z0-9\-_.]/i', '', $icon ) );
+                  if ( $slug ) {
+                    $svg_path = trailingslashit( dirname( __DIR__ ) ) . 'assets/icons/' . $slug . '.svg';
+                    if ( file_exists( $svg_path ) ) {
+                      // Inline SVG from plugin assets.
+                      $svg = file_get_contents( $svg_path );
+                      // Remove embedded <style> blocks that set fixed fills
+                      $svg = preg_replace( '/<style[^>]*>.*?<\/style>/is', '', $svg );
+                      // Normalize fills to currentColor so we can control color via CSS.
+                      $svg = preg_replace( '/fill\s*=\s*"#[0-9a-fA-F]{3,6}"/i', 'fill="currentColor"', $svg );
+                      $svg = preg_replace( '/fill\s*=\s*"(?!currentColor)[^"]+"/i', 'fill="currentColor"', $svg );
+                      // Ensure common shape tags have a fill when missing
+                      $svg = preg_replace( '/<path(?![^>]*fill=)/i', '<path fill="currentColor"', $svg );
+                      $svg = preg_replace( '/<rect(?![^>]*fill=)/i', '<rect fill="currentColor"', $svg );
+                      $svg = preg_replace( '/<circle(?![^>]*fill=)/i', '<circle fill="currentColor"', $svg );
+                      $svg = preg_replace( '/<polygon(?![^>]*fill=)/i', '<polygon fill="currentColor"', $svg );
+                      $svg = preg_replace( '/<polyline(?![^>]*fill=)/i', '<polyline fill="currentColor"', $svg );
+                      $svg = preg_replace( '/<ellipse(?![^>]*fill=)/i', '<ellipse fill="currentColor"', $svg );
+                      // Ensure root svg has fill=currentColor if none set
+                      if ( strpos( $svg, '<svg' ) !== false && ! preg_match( '/<svg[^>]*fill=/i', $svg ) ) {
+                        $svg = preg_replace( '/<svg([^>]*)>/i', '<svg$1 fill="currentColor">', $svg, 1 );
+                      }
+                      // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                      echo $svg;
+                    }
+                  }
+                ?>
+              </div>
             <?php endif; ?>
 
             <?php if ( $label ) : ?>
